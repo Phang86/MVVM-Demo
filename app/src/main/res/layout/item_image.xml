@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="wallPaper"
+            type="com.gy.mvvm_demo.db.bean.WallPaper" />
+    </data>
+
+    <com.gy.mvvm_demo.view.CustomImageView
+        android:id="@+id/image"
+        networkUrl="@{wallPaper.img}"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scaleType="centerCrop" />
+</layout>
+

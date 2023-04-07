@@ -107,6 +107,23 @@ public class DateUtil {
     }
 
     /**
+     * 获取第二天凌晨0点时间戳
+     * @return
+     */
+    public static long getMillisNextEarlyMorning() {
+        Calendar cal = Calendar.getInstance();
+        //日期加1
+        cal.add(Calendar.DAY_OF_YEAR, 1);
+        //时间设定到0点整
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTimeInMillis();
+    }
+
+
+    /**
      * 获取年
      *
      * @return 例如 2021

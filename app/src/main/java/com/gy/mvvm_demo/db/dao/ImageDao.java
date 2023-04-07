@@ -10,6 +10,9 @@ import com.gy.mvvm_demo.db.bean.Image;
 
 import java.util.List;
 
+import io.reactivex.Completable;
+import io.reactivex.Flowable;
+
 @Dao
 public interface ImageDao {
 
@@ -17,10 +20,10 @@ public interface ImageDao {
     List<Image> getAll();
 
     @Query("SELECT * FROM image WHERE uid LIKE :uid LIMIT 1")
-    Image queryById(int uid);
+    Flowable<Image> queryById(int uid);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(Image... images);
+    Completable insertAll(Image... images);
 
     @Delete
     void delete(Image image);

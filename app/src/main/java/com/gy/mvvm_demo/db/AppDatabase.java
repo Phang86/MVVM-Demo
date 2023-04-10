@@ -2,6 +2,7 @@ package com.gy.mvvm_demo.db;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
@@ -19,7 +20,9 @@ import com.gy.mvvm_demo.db.dao.UserDao;
 import com.gy.mvvm_demo.db.dao.VideoDao;
 import com.gy.mvvm_demo.db.dao.WallPaperDao;
 
-@Database(entities = {Image.class, WallPaper.class, News.class, Video.class, User.class},version = 4,exportSchema = false)
+import org.jetbrains.annotations.NotNull;
+
+@Database(entities = {Image.class, WallPaper.class, News.class, Video.class, User.class},version = 5,exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static final String DATABASE_NAME = "mvvm_demo";
@@ -37,6 +40,7 @@ public abstract class AppDatabase extends RoomDatabase {
                             .addMigrations(MIGRATION_1_2)
                             .addMigrations(MIGRATION_2_3)
                             .addMigrations(MIGRATION_3_4)
+                            .addMigrations(MIGRATION_4_5)
                             .build();
                 }
             }
@@ -105,6 +109,16 @@ public abstract class AppDatabase extends RoomDatabase {
         }
     };
 
+    /**
+     * 版本升级迁移到5 在用户表中新增一个avatar字段
+     */
+    static final Migration MIGRATION_4_5 = new Migration(4, 5) {
+        @Override
+        public void migrate(@NonNull @NotNull SupportSQLiteDatabase database) {
+            //User表中新增avatar字段
+            database.execSQL("ALTER TABLE `user` ADD COLUMN avatar TEXT");
+        }
+    };
 
 
     public abstract ImageDao imageDao();

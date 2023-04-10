@@ -18,6 +18,20 @@ public class UserRepository {
 
     public final MutableLiveData<String> failed = new MutableLiveData<>();
 
+    private static volatile UserRepository mInstance;
+
+    public static UserRepository getInstance() {
+        if (mInstance == null) {
+            synchronized (UserRepository.class) {
+                if (mInstance == null) {
+                    mInstance = new UserRepository();
+                }
+            }
+        }
+        return mInstance;
+    }
+
+
     public MutableLiveData<User> getUser() {
         Flowable<List<User>> listFlowable = BaseApplication.getDb().userDao().getAll();
         CustomDisposable.addDisposable(listFlowable, users -> {

@@ -6,6 +6,24 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 相机权限 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- 文件读写权限-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <!-- 管理外部存储权限，Android11需要-->
+    <uses-permission
+        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <!--允许获取粗略位置-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!--允许获取精准位置-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!--允许获取wifi状态改变，用于网络定位-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
 
     <application
         android:name=".BaseApplication"
@@ -18,54 +36,74 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MVVMDemo"
-        tools:targetApi="31">
+        android:requestLegacyExternalStorage="true"
+        tools:targetApi="n">
+
         <activity
             android:name=".ui.activity.RegisterActivity"
             android:theme="@style/materialTheme"
             android:exported="false">
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
+
         </activity>
+
         <activity
             android:name=".ui.activity.WebActivity"
             android:exported="false"
             android:theme="@style/SplashTheme">
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
+
         </activity>
+
         <activity
             android:name=".ui.activity.HomeActivity"
             android:exported="false">
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
+
         </activity>
+
         <activity
             android:name=".ui.activity.LoginActivity"
             android:exported="false"
             android:theme="@style/materialTheme">
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
+
         </activity>
+
         <activity
             android:name=".ui.activity.PictureViewActivity"
             android:exported="false"
             android:theme="@style/ImageTheme">
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
+
         </activity>
+
         <activity
             android:name=".ui.activity.MainActivity"
             android:exported="false"
             android:theme="@style/mainTheme">
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
+
         </activity>
+
         <activity
             android:name=".ui.activity.SplashActivity"
             android:exported="true"
@@ -80,6 +118,26 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+        <!-- Android7.0以后读取文件需要配置Provider -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+
+        </provider>
+
+        <!--高德地图Key-->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="56ea0626692cc8ab4e200e7fc2fc3a74"
+            />
+
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.gy.mvvm_demo.viewmodels;
 
+import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -10,10 +11,20 @@ import com.gy.mvvm_demo.repository.NewsRepository;
 
 import java.util.function.ObjIntConsumer;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+
 public class MainViewModel extends BaseViewModel {
     public LiveData<BiYingResponse> biying;
+
     public LiveData<WallPaperResponse> wallPaper;
-    private MainRepository mainRepository = new MainRepository();
+
+    private final MainRepository mainRepository;
+
+    @ViewModelInject
+    MainViewModel(MainRepository mainRepository){
+        this.mainRepository = mainRepository;
+    }
 
     public void getWallPaper() {
         //wallPaper = new MainRepository().getWallPaper();

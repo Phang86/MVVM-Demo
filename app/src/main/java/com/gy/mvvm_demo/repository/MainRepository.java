@@ -2,6 +2,8 @@ package com.gy.mvvm_demo.repository;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
+import static com.gy.mvvm_demo.BaseApplication.getContext;
+
 import android.annotation.SuppressLint;
 import android.util.Log;
 
@@ -21,10 +23,14 @@ import com.gy.mvvm_demo.network.utils.DateUtil;
 import com.gy.mvvm_demo.network.utils.KLog;
 import com.gy.mvvm_demo.utils.Constant;
 import com.gy.mvvm_demo.utils.MVUtils;
+import com.gy.mvvm_demo.utils.MVUtilsEntryPoint;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.EntryPointAccessors;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
 
@@ -42,6 +48,17 @@ public class MainRepository {
 
     public final MutableLiveData<String> failed = new MutableLiveData<>();
 
+    private final MVUtils mvUtils;
+
+
+    @Inject
+    public MainRepository(){
+        //获取mvUtils
+        MVUtilsEntryPoint entryPoint =
+                EntryPointAccessors.fromApplication(getContext(), MVUtilsEntryPoint.class);
+        mvUtils = entryPoint.getMVUtils();
+
+    }
 
     /**
      * 获取壁纸数据
@@ -49,8 +66,8 @@ public class MainRepository {
      */
     public MutableLiveData<WallPaperResponse> getWallPaper() {
         //今日此接口是否已经请求
-        if (MVUtils.getBoolean(Constant.IS_TODAY_REQUEST_WALLPAPER)) {
-            if (DateUtil.getTimestamp() <= MVUtils.getLong(Constant.REQUEST_TIMESTAMP_WALLPAPER)) {
+        if (mvUtils.getBoolean(Constant.IS_TODAY_REQUEST_WALLPAPER)) {
+            if (DateUtil.getTimestamp() <= mvUtils.getLong(Constant.REQUEST_TIMESTAMP_WALLPAPER)) {
                 getLocalDBForWallPaper();
             } else {
                 requestNetworkApiForWallPaper();
@@ -87,8 +104,8 @@ public class MainRepository {
      * 保存热门壁纸数据
      */
     private void saveWallPaper(WallPaperResponse wallPaperResponse) {
-        MVUtils.put(Constant.IS_TODAY_REQUEST_WALLPAPER, true);
-        MVUtils.put(Constant.REQUEST_TIMESTAMP_WALLPAPER, DateUtil.getMillisNextEarlyMorning());
+        mvUtils.put(Constant.IS_TODAY_REQUEST_WALLPAPER, true);
+        mvUtils.put(Constant.REQUEST_TIMESTAMP_WALLPAPER, DateUtil.getMillisNextEarlyMorning());
 
         Completable deleteAll = BaseApplication.getDb().wallPaperDao().deleteAll();
         CustomDisposable.addDisposable(deleteAll, () -> {
@@ -132,9 +149,9 @@ public class MainRepository {
      */
     private void saveImageData(BiYingResponse biYingImgResponse) {
         //记录今日已请求
-        MVUtils.put(Constant.IS_TODAY_REQUEST,true);
+        mvUtils.put(Constant.IS_TODAY_REQUEST,true);
         //记录此次请求的时最晚有效时间戳
-        MVUtils.put(Constant.REQUEST_TIMESTAMP, DateUtil.getMillisNextEarlyMorning());
+        mvUtils.put(Constant.REQUEST_TIMESTAMP, DateUtil.getMillisNextEarlyMorning());
         BiYingResponse.ImagesBean bean = biYingImgResponse.getImages().get(0);
         //保存到数据库
         Completable insert = BaseApplication.getDb().imageDao().insertAll(
@@ -147,8 +164,8 @@ public class MainRepository {
 
     public MutableLiveData<BiYingResponse> getBiYing() {
         //今日此接口是否已请求
-        if (MVUtils.getBoolean(Constant.IS_TODAY_REQUEST)) {
-            if(DateUtil.getTimestamp() <= MVUtils.getLong(Constant.REQUEST_TIMESTAMP)){
+        if (mvUtils.getBoolean(Constant.IS_TODAY_REQUEST)) {
+            if(DateUtil.getTimestamp() <= mvUtils.getLong(Constant.REQUEST_TIMESTAMP)){
                 //当前时间未超过次日0点，从本地获取
                 getLocalDB();
             } else {

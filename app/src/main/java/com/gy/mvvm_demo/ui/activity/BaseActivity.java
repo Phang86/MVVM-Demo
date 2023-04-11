@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +19,9 @@ import androidx.appcompat.widget.Toolbar;
 import com.gy.mvvm_demo.BaseApplication;
 import com.gy.mvvm_demo.utils.PermissionUtils;
 import com.gy.mvvm_demo.view.dialog.LoadingDialog;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 基础Activity
@@ -174,6 +179,34 @@ public class BaseActivity extends AppCompatActivity {
         intent.setData(Uri.parse("package:" + getPackageName()));
         startActivityForResult(intent, PermissionUtils.REQUEST_MANAGE_EXTERNAL_STORAGE_CODE);
     }
+
+    /**
+     * 请求外部存储管理 Android11版本时获取文件读写权限时调用 新的方式
+     */
+    protected void requestManageExternalStorage(ActivityResultLauncher<Intent> intentActivityResultLauncher) {
+        Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+        intent.setData(Uri.parse("package:" + getPackageName()));
+        intentActivityResultLauncher.launch(intent);
+    }
+
+    protected List<View> getAllChildViews() {
+        View view = this.getWindow().getDecorView();
+        return getAllChildViews(view);
+    }
+
+    protected List<View> getAllChildViews(View parent) {
+        List<View> allchildren = new ArrayList<View>();
+        if (parent instanceof ViewGroup) {
+            ViewGroup vp = (ViewGroup) parent;
+            for (int i = 0; i < vp.getChildCount(); i++) {
+                View viewchild = vp.getChildAt(i);
+                allchildren.add(viewchild);
+                allchildren.addAll(getAllChildViews(viewchild));
+            }
+        }
+        return allchildren;
+    }
+
 
 }
 

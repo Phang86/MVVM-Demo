@@ -1,5 +1,6 @@
 package com.gy.mvvm_demo.utils;
 
+import android.content.Context;
 import android.os.Parcelable;
 
 import com.tencent.mmkv.MMKV;
@@ -7,24 +8,42 @@ import com.tencent.mmkv.MMKV;
 import java.util.Collections;
 import java.util.Set;
 
+import javax.inject.Singleton;
+
+import dagger.Module;
+import dagger.Provides;
+import dagger.hilt.InstallIn;
+import dagger.hilt.android.components.ApplicationComponent;
+import dagger.hilt.android.qualifiers.ApplicationContext;
+
+@Module
+@InstallIn(ApplicationComponent.class)
 public class MVUtils {
 
     private static MVUtils mInstance;
     private static MMKV mmkv;
 
-    public MVUtils() {
-        mmkv = MMKV.defaultMMKV();
-    }
+//    public MVUtils() {
+//        mmkv = MMKV.defaultMMKV();
+//    }
 
-    public static MVUtils getInstance() {
-        if (mInstance == null) {
-            synchronized (MVUtils.class) {
-                if (mInstance == null) {
-                    mInstance = new MVUtils();
-                }
-            }
-        }
-        return mInstance;
+//    public static MVUtils getInstance() {
+//        if (mInstance == null) {
+//            synchronized (MVUtils.class) {
+//                if (mInstance == null) {
+//                    mInstance = new MVUtils();
+//                }
+//            }
+//        }
+//        return mInstance;
+//    }
+
+    @Provides
+    @Singleton
+    public MVUtils getMVUtils(@ApplicationContext Context context){
+        MMKV.initialize(context);
+        mmkv = MMKV.defaultMMKV();
+        return new MVUtils();
     }
 
     /**

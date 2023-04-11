@@ -17,10 +17,13 @@ import com.tencent.smtt.sdk.QbSdk;
 
 import java.util.HashMap;
 
+import dagger.hilt.android.HiltAndroidApp;
+
 /**
  * 自定义 Application
  * @author llw
  */
+@HiltAndroidApp
 public class BaseApplication extends Application {
 
     @SuppressLint("StaticFieldLeak")
@@ -35,10 +38,6 @@ public class BaseApplication extends Application {
         //初始化
         NetworkApi.init(new NetworkRequiredInfo(this));
         context = getApplicationContext();
-        //MMKV初始化
-        MMKV.initialize(this);
-        //工具类初始化
-        MVUtils.getInstance();
         //创建本地数据库
         db = AppDatabase.getInstance(this);
         //初始化腾讯x5内核 WebView

@@ -24,7 +24,12 @@ import android.view.WindowManager;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.AMapOptions;
+import com.amap.api.maps.CameraUpdate;
+import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapsInitializer;
+import com.amap.api.maps.model.CameraPosition;
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.amap.api.services.core.AMapException;
 import com.amap.api.services.core.LatLonPoint;
@@ -32,6 +37,7 @@ import com.amap.api.services.district.DistrictItem;
 import com.amap.api.services.district.DistrictResult;
 import com.amap.api.services.district.DistrictSearch;
 import com.amap.api.services.district.DistrictSearchQuery;
+import com.amap.api.services.geocoder.GeocodeAddress;
 import com.amap.api.services.geocoder.GeocodeQuery;
 import com.amap.api.services.geocoder.GeocodeResult;
 import com.amap.api.services.geocoder.GeocodeSearch;
@@ -84,8 +90,7 @@ public class MapFragment extends BaseFragment implements AMap.OnMyLocationChange
     private int index = 0;
     //行政区数组
     private final String[] districtArray = new String[5];
-
-
+    private AMap aMap;
 
 
     /**
@@ -93,7 +98,7 @@ public class MapFragment extends BaseFragment implements AMap.OnMyLocationChange
      */
     private void initMap() {
         //初始化地图控制器对象
-        AMap aMap = binding.mapView.getMap();
+        aMap = binding.mapView.getMap();
         // 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
         aMap.setMyLocationEnabled(true);
         MyLocationStyle style = new MyLocationStyle();//初始化定位蓝点样式类myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）如果不设置myLocationType，默认也会执行此种模式。
@@ -156,9 +161,11 @@ public class MapFragment extends BaseFragment implements AMap.OnMyLocationChange
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         //基于个人隐私保护的关系，这里要设置为true，否则会出现白屏的现象
-        //MapsInitializer.updatePrivacyShow(requireActivity(),true,true);
+        MapsInitializer.updatePrivacyShow(requireActivity(),true,true);
         MapsInitializer.updatePrivacyAgree(requireActivity(),true);
         binding.mapView.onCreate(savedInstanceState);
+        //显示加载框
+        showLoading();
         //点击按钮显示天气弹窗
         binding.fabWeather.setOnClickListener(v -> showWeatherDialog());
         //点击按钮显示城市弹窗
@@ -232,7 +239,6 @@ public class MapFragment extends BaseFragment implements AMap.OnMyLocationChange
             //搜索天气  实时天气和预报天气
             searchWeather(WeatherSearchQuery.WEATHER_TYPE_LIVE);
             searchWeather(WeatherSearchQuery.WEATHER_TYPE_FORECAST);
-
         } else {
             showMsg("获取地址失败");
         }
@@ -244,6 +250,19 @@ public class MapFragment extends BaseFragment implements AMap.OnMyLocationChange
      */
     @Override
     public void onGeocodeSearched(GeocodeResult geocodeResult, int rCode) {
+        //拿到返回的坐标，然后去地图上定位，改变地图中心
+        if (rCode == PARSE_SUCCESS_CODE) {
+            Log.e(TAG, "onGeocodeSearched: 地址转坐标成功");
+            List<GeocodeAddress> geocodeAddressList = geocodeResult.getGeocodeAddressList();
+            if (geocodeAddressList != null && geocodeAddressList.size() > 0) {
+                LatLonPoint latLonPoint = geocodeAddressList.get(0).getLatLonPoint();
+                Log.e(TAG, "onGeocodeSearched: 坐标：" + latLonPoint.getLongitude() + "，" + latLonPoint.getLatitude());
+                //切换地图中心
+                switchMapCenter(geocodeResult,latLonPoint);
+            }
+        } else {
+            showMsg("获取坐标失败");
+        }
 
     }
 
@@ -275,6 +294,8 @@ public class MapFragment extends BaseFragment implements AMap.OnMyLocationChange
             Log.e(TAG, "onWeatherLiveSearched: " + new Gson().toJson(liveResult));
             binding.fabWeather.show();
             binding.fabCity.show();
+            //隐藏加载框
+            dismissLoading();
         } else {
             showMsg("实时天气数据为空");
         }
@@ -287,6 +308,7 @@ public class MapFragment extends BaseFragment implements AMap.OnMyLocationChange
     public void onWeatherForecastSearched(LocalWeatherForecastResult localWeatherForecastResult, int code) {
         forecastResult = localWeatherForecastResult.getForecastResult();
         if (forecastResult != null) {
+            weatherForecast.clear();
             weatherForecast.addAll(localWeatherForecastResult.getForecastResult().getWeatherForecast());
             Log.e(TAG, "onWeatherForecastSearched: " + new Gson().toJson(forecastResult));
         } else {
@@ -341,6 +363,7 @@ public class MapFragment extends BaseFragment implements AMap.OnMyLocationChange
     @Override
     public void onDistrictSearched(DistrictResult districtResult) {
         if (districtResult != null) {
+            dismissLoading();
             if (districtResult.getAMapException().getErrorCode() == AMapException.CODE_AMAP_SUCCESS) {
                 final List<String> nameList = new ArrayList<>();
 
@@ -361,31 +384,28 @@ public class MapFragment extends BaseFragment implements AMap.OnMyLocationChange
                         binding.rvCity.setLayoutManager(new LinearLayoutManager(requireActivity()));
                         //item点击事件
                         cityAdapter.setOnItemClickListener((adapter, view, position) -> {
-                            if (index != 4 ) {
-                                index++;
-                                districtArray[index] = nameList.get(position);
-                                binding.ivBack.setVisibility(View.VISIBLE);
-                                //返回键的监听
-                                binding.ivBack.setOnClickListener(v -> {
-                                    index--;
-                                    //搜索上级行政区
-                                    districtSearch(districtArray[index]);
-                                    if ("中国".equals(districtArray[index])) {
-                                        binding.ivBack.setVisibility(View.GONE);
-                                    }
-                                });
-
-                                //搜索此区域的下级行政区
+                            index++;
+                            districtArray[index] = nameList.get(position);
+                            binding.ivBack.setVisibility(View.VISIBLE);
+                            //返回键的监听
+                            binding.ivBack.setOnClickListener(v -> {
+                                index--;
+                                //搜索上级行政区
                                 districtSearch(districtArray[index]);
-                            }else{
-                                showMsg("已经是最后一级");
-                            }
+                                if ("中国".equals(districtArray[index])) {
+                                    binding.ivBack.setVisibility(View.GONE);
+                                }
+                            });
+                            //搜索此区域的下级行政区
+                            districtSearch(districtArray[index]);
                         });
                         binding.rvCity.setAdapter(cityAdapter);
+                    }else{
+                        //通过地址得到坐标
+                        addressToLatlng();
                     }
                 }catch (ArrayIndexOutOfBoundsException e){
                     e.printStackTrace();
-
                 }
 
             } else {
@@ -398,12 +418,40 @@ public class MapFragment extends BaseFragment implements AMap.OnMyLocationChange
      * 地址转经纬度坐标
      */
     private void addressToLatlng() {
+        showLoading();
         //关闭抽屉
         binding.drawerLayout.closeDrawer(GravityCompat.END);
         // GeocodeQuery 有两个参数 一个是当前所选城市，第二个是当前地的上级城市，
         Log.e(TAG, "onDistrictSearched: " + districtArray[index] + "  ,  " + districtArray[index - 2]);
         GeocodeQuery query = new GeocodeQuery(districtArray[index], districtArray[index - 2]);
         geocoderSearch.getFromLocationNameAsyn(query);
+    }
+
+    /**
+     * 切换地图中心
+     */
+    private void switchMapCenter(GeocodeResult geocodeResult, LatLonPoint latLonPoint) {
+        //显示解析后的坐标，
+        double latitude = latLonPoint.getLatitude();
+        double longitude = latLonPoint.getLongitude();
+        //创建经纬度对象
+        LatLng latLng = new LatLng(latitude, longitude);
+        //改变地图中心点
+        //参数依次是：视角调整区域的中心点坐标、希望调整到的缩放级别、俯仰角0°~45°（垂直与地图时为0）、偏航角 0~360° (正北方为0)
+        CameraUpdate mCameraUpdate = CameraUpdateFactory.newCameraPosition(new CameraPosition(latLng, 18, 30, 0));
+        //在地图上添加marker
+        aMap.addMarker(new MarkerOptions().position(latLng).title(geocodeResult.getGeocodeQuery().getLocationName()).snippet("DefaultMarker"));
+        //动画移动
+        aMap.animateCamera(mCameraUpdate);
+        //移动地图后通过坐标转地址，触发onRegeocodeSearched回调，在这个回调里去查询天气
+        RegeocodeQuery query = new RegeocodeQuery(latLonPoint, 20, GeocodeSearch.AMAP);
+        geocoderSearch.getFromLocationAsyn(query);
+        //重置行政区
+        index = 0;
+        //搜索行政区
+        districtArray[index] = "中国";
+        districtSearch(districtArray[index]);
+
     }
 
 

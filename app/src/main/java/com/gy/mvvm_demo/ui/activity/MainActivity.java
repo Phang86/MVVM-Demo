@@ -20,6 +20,9 @@ import com.gy.mvvm_demo.adapter.WallPaperAdapter;
 import com.gy.mvvm_demo.databinding.ActivityMainBinding;
 import com.gy.mvvm_demo.viewmodels.MainViewModel;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class MainActivity extends BaseActivity {
 
     private ActivityMainBinding dataBinding;
@@ -28,7 +31,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+//        setContentView(R.layout.activity_main);
         initView();
     }
 

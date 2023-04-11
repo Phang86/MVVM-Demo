@@ -12,17 +12,20 @@
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
         <!-- 主页面 -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".ui.fragment.MapFragment">
+            tools:context=".ui.fragment.MapFragment"
+            >
 
             <com.amap.api.maps.MapView
                 android:id="@+id/map_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -30,7 +33,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:layout_marginEnd="20dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                >
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/fab_weather"
@@ -42,7 +46,8 @@
                     android:visibility="gone"
                     app:backgroundTint="@color/white"
                     app:fabSize="mini"
-                    tools:ignore="UsingOnClickInXml" />
+                    tools:ignore="UsingOnClickInXml"
+                    />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/fab_city"
@@ -54,7 +59,9 @@
                     android:visibility="gone"
                     app:backgroundTint="@color/white"
                     app:fabSize="mini"
-                    tools:ignore="UsingOnClickInXml" />
+                    tools:ignore="UsingOnClickInXml"
+                    />
+
             </LinearLayout>
 
 
@@ -66,11 +73,13 @@
             android:layout_height="match_parent"
             android:layout_gravity="end"
             android:background="@color/white"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize">
+                android:layout_height="?attr/actionBarSize"
+                >
                 <!--返回图标-->
                 <ImageView
                     android:id="@+id/iv_back"
@@ -79,7 +88,8 @@
                     android:layout_centerVertical="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_back_black" />
+                    android:src="@drawable/ic_back_black"
+                    />
                 <!--父级行政区-->
                 <TextView
                     android:layout_centerInParent="true"
@@ -89,18 +99,22 @@
                     android:layout_gravity="center"
                     android:text="@{name}"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    />
+
             </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/black" />
+                android:background="@color/black"
+                />
             <!--城市列表-->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_city"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                />
 
         </LinearLayout>
 

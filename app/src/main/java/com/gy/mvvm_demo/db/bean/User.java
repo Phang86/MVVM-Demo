@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey;
 
 import com.gy.mvvm_demo.BR;
 
+
 @Entity(tableName = "user")
 public class User extends BaseObservable {
 

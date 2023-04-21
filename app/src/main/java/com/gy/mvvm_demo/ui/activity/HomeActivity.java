@@ -80,11 +80,6 @@ public class HomeActivity extends BaseActivity  {
      */
     private ActivityResultLauncher<String[]> permissionActivityResultLauncher;
 
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         register();

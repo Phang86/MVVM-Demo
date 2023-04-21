@@ -1,5 +1,6 @@
 package com.gy.mvvm_demo.ui.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -30,7 +31,7 @@ import java.util.List;
  */
 public class BaseActivity extends AppCompatActivity {
 
-    protected AppCompatActivity context;
+    protected Activity context;
     private LoadingDialog loadingDialog;
     /**
      * 打开相册请求码
@@ -172,7 +173,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     /**
-     * 请求外部存储管理 Android11版本时获取文件读写权限时调用
+     * 请求外部存储管理 Android11版本时获取文件读写权限时调用  appcompat库 >= 1.3.0版本 方法已经弃用
      */
     protected void requestManageExternalStorage() {
         Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
@@ -189,24 +190,23 @@ public class BaseActivity extends AppCompatActivity {
         intentActivityResultLauncher.launch(intent);
     }
 
-    protected List<View> getAllChildViews() {
-        View view = this.getWindow().getDecorView();
-        return getAllChildViews(view);
-    }
-
-    protected List<View> getAllChildViews(View parent) {
-        List<View> allchildren = new ArrayList<View>();
-        if (parent instanceof ViewGroup) {
-            ViewGroup vp = (ViewGroup) parent;
-            for (int i = 0; i < vp.getChildCount(); i++) {
-                View viewchild = vp.getChildAt(i);
-                allchildren.add(viewchild);
-                allchildren.addAll(getAllChildViews(viewchild));
-            }
-        }
-        return allchildren;
-    }
-
+//    protected List<View> getAllChildViews() {
+//        View view = this.getWindow().getDecorView();
+//        return getAllChildViews(view);
+//    }
+//
+//    protected List<View> getAllChildViews(View parent) {
+//        List<View> allchildren = new ArrayList<View>();
+//        if (parent instanceof ViewGroup) {
+//            ViewGroup vp = (ViewGroup) parent;
+//            for (int i = 0; i < vp.getChildCount(); i++) {
+//                View viewchild = vp.getChildAt(i);
+//                allchildren.add(viewchild);
+//                allchildren.addAll(getAllChildViews(viewchild));
+//            }
+//        }
+//        return allchildren;
+//    }
 
 }
 

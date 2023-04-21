@@ -11,6 +11,24 @@
 
         <import type="android.view.View"
             />
+
+        <!--是否批量删除-->
+        <variable
+            name="isBatchDeletion"
+            type="Boolean"
+            />
+
+        <!--是否全选-->
+        <variable
+            name="isAllSelected"
+            type="Boolean"
+            />
+
+        <!--用于加载mipmap图标-->
+        <import type="androidx.core.content.ContextCompat" />
+
+        <!--R文件-->
+        <import type="com.gy.mvvm_demo.R" />
     </data>
 
     <RelativeLayout
@@ -19,6 +37,7 @@
         android:fitsSystemWindows="true"
         android:orientation="vertical"
         tools:context=".ui.activity.NotebookActivity"
+        android:background="@color/white"
         >
 
         <androidx.appcompat.widget.Toolbar
@@ -30,10 +49,11 @@
             >
 
             <TextView
+                android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="记事本"
+                android:text="@{isBatchDeletion ? `未选择` : `记事本`}"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -55,10 +75,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:overScrollMode="never"
-                android:paddingStart="8dp"
                 android:visibility="@{hasNotebook ? View.VISIBLE : View.GONE}"
-                android:paddingEnd="8dp"
-                android:paddingTop="8dp"
+                android:padding="4dp"
                 />
 
             <!--没有记录布局-->
@@ -97,12 +115,47 @@
             android:layout_alignParentBottom="true"
             android:layout_margin="10dp"
             android:onClick="toEdit"
+            android:visibility="@{isBatchDeletion ? View.GONE : View.VISIBLE}"
             android:src="@drawable/ic_add"
             app:backgroundTint="@color/white"
             tools:ignore="UsingOnClickInXml"
             />
 
+        <!--批量删除模式下显示的布局-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:visibility="@{isBatchDeletion ? View.VISIBLE : View.GONE}">
+
+            <TextView
+                android:id="@+id/tv_delete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/ic_delete"
+                android:gravity="center"
+                android:text="删除"
+                android:textColor="@color/black"
+                />
+
+            <TextView
+                android:id="@+id/tv_all_selected"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@{isAllSelected ? ContextCompat.getDrawable(tvAllSelected.getContext(),R.drawable.ic_all_selected) : ContextCompat.getDrawable(tvAllSelected.getContext(),R.drawable.ic_all_select)}"
+                android:gravity="center"
+                android:text="@{isAllSelected ? `取消全选` : `全选`}"
+                android:textColor="@{isAllSelected ? @color/purple_500 : @color/black}"
+                />
+
+        </LinearLayout>
+
     </RelativeLayout>
+
 </layout>
 
 

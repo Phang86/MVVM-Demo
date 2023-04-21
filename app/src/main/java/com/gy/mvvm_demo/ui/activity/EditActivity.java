@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -15,43 +16,72 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import com.gy.mvvm_demo.R;
 import com.gy.mvvm_demo.databinding.ActivityEditBinding;
+import com.gy.mvvm_demo.db.bean.Notebook;
 import com.gy.mvvm_demo.utils.EasyDate;
+import com.gy.mvvm_demo.viewmodels.EditViewModel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class EditActivity extends BaseActivity implements View.OnClickListener {
 
     private ActivityEditBinding binding;
     private InputMethodManager inputMethodManager;
     private final String TAG = "EditActivity";
-    private HashMap<Integer,Integer> map;
+    private HashMap<Integer, Integer> map;
+    private EditViewModel viewModel;
+    private int uid;
+    private Notebook mNotebook;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_edit);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit);
+        viewModel = new ViewModelProvider(this).get(EditViewModel.class);
+        setStatusBar(true);
+        back(binding.toolbar);
         initView();
     }
 
     private void initView() {
-        setStatusBar(true);
-        back(binding.toolbar);
         //监听输入
         listenInput(binding.etTitle);
         listenInput(binding.etContent);
         binding.ivOk.setOnClickListener(this);
-        showInput();
+        binding.ivDelete.setOnClickListener(this);
+
+        uid = getIntent().getIntExtra("uid", -1);
+        if (uid == -1) {
+            showInput();
+            showTime();
+            binding.ivDelete.setVisibility(View.GONE);
+        } else {
+            //修改
+            binding.ivDelete.setVisibility(View.VISIBLE);
+            viewModel.queryById(uid);
+            viewModel.notebook.observe(this, notebook -> {
+                mNotebook = notebook;
+                binding.setNotebook(mNotebook);
+            });
+            viewModel.failed.observe(this, result -> Log.e(TAG, result));
+        }
     }
 
     /**
      * 监听输入
+     *
      * @param editText 输入框
      */
     private void listenInput(final AppCompatEditText editText) {
@@ -71,13 +101,13 @@ public class EditActivity extends BaseActivity implements View.OnClickListener {
                 if (s.length() > 0) {
                     binding.ivOk.setVisibility(View.VISIBLE);
                 } else {
-                    if (binding.etTitle.getText().length() == 0 && binding.etContent.getText().length() == 0  ){
+                    if (binding.etTitle.getText().length() == 0 && binding.etContent.getText().length() == 0) {
                         binding.ivOk.setVisibility(View.GONE);
                     }
                 }
                 int wordsNumber = binding.etContent.getText().toString().length();
                 binding.tvWordsNumber.setVisibility(wordsNumber > 0 ? View.VISIBLE : View.GONE);
-                binding.tvWordsNumber.setText(wordsNumber+"字");
+                binding.tvWordsNumber.setText(wordsNumber + "字");
             }
         });
     }
@@ -94,10 +124,30 @@ public class EditActivity extends BaseActivity implements View.OnClickListener {
     /**
      * 显示当前时间
      */
-    private void showTime(){
-//        EasyDate.get
+    private void showTime() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
+        String year_month_day = sdf.format(new Date());
+        String hour = EasyDate.getHour();
+        String minute = EasyDate.getMinute();
+        String str = "";
+        if (Integer.parseInt(hour) > 12 && Integer.parseInt(hour) <= 17) {
+            str = "下午";
+        } else if (Integer.parseInt(hour) == 12) {
+            str = "中午";
+        } else if (Integer.parseInt(hour) >= 18) {
+            str = "晚上";
+        } else if (Integer.parseInt(hour) < 12 && Integer.parseInt(hour) >= 9) {
+            str = "上午";
+        } else if (Integer.parseInt(hour) < 9 && Integer.parseInt(hour) >= 7) {
+            str = "早上";
+        } else {
+            str = "凌晨";
+        }
+        String timeNow = year_month_day + "  " + str + " " + hour + ":" + minute;
+        //binding.tvTime.setText(timeNow);
+        //mNotebook.setTime(timeNow);
+        binding.setNotebook(new Notebook(timeNow, "", ""));
     }
-
 
 
     /**
@@ -125,7 +175,21 @@ public class EditActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_ok:
-                showMsg("提交");
+                if (uid == -1) {
+                    viewModel.addNotebook(new Notebook(binding.tvTime.getText().toString(),
+                            binding.etContent.getText().toString(),
+                            binding.etTitle.getText().toString()));
+                } else {
+                    mNotebook.setTitle(binding.etTitle.getText().toString());
+                    mNotebook.setContent(binding.etContent.getText().toString());
+                    mNotebook.setTime(binding.tvTime.getText().toString());
+                    viewModel.updateNotebook(mNotebook);
+                }
+                finish();
+                break;
+            case R.id.iv_delete:
+                viewModel.deleteNotebook(mNotebook);
+                finish();
                 break;
             default:
                 break;

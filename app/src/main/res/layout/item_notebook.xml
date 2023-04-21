@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="notebook"
+            type="com.gy.mvvm_demo.db.bean.Notebook" />
+        <!--点击事件-->
+<!--        <variable-->
+<!--            name="onClick"-->
+<!--            type="com.gy.mvvm_demo.ui.adapter.NotebookAdapter.ClickBinding" />-->
+
+        <!--是否批量删除-->
+        <variable
+            name="isBatchDeletion"
+            type="Boolean" />
+
+        <!--视图 控制显示、隐藏-->
+        <import type="android.view.View" />
+
+        <!--用于加载mipmap图标-->
+        <import type="androidx.core.content.ContextCompat" />
+
+        <!--R文件-->
+        <import type="com.gy.mvvm_demo.R" />
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="12dp"
+        app:cardMaxElevation="0dp"
+        app:cardElevation="0dp"
+        android:layout_margin="4dp"
+        app:contentPadding="5dp"
+        android:layout_marginBottom="8dp"
+        app:cardBackgroundColor="@color/white"
+        android:foreground="?attr/selectableItemBackground"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            >
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@{notebook.title}"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_title"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:text="@{notebook.content}"
+                android:textSize="14sp"
+                android:textColor="@color/grey"
+                />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@{notebook.time}"
+                android:layout_below="@+id/tv_content"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/grey"
+                />
+
+            <ImageView
+                android:id="@+id/iv_check"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="6dp"
+                android:src="@{notebook.select ? ContextCompat.getDrawable(ivCheck.getContext(),R.drawable.ic_selected) : ContextCompat.getDrawable(ivCheck.getContext(),R.drawable.ic_select)}"
+                android:visibility="@{isBatchDeletion ? View.VISIBLE : View.GONE}" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

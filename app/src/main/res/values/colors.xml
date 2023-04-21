@@ -10,4 +10,7 @@
     <color name="line">#EEEEEE</color>
     <color name="translucent">#90000000</color>
     <color name="gray_white">#e1e1e1</color>
+    <color name="grey">#A5A5A5</color>
+    <color name="text_color">#FF000000</color><!--文字颜色-->
+    <color name="green">#2EAD4D</color><!--要想代码过得去，主题就要带点绿-->
 </resources>

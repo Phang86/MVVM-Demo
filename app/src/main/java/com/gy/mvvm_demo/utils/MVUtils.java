@@ -20,7 +20,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext;
 @InstallIn(ApplicationComponent.class)
 public class MVUtils {
 
-    private static MVUtils mInstance;
+//    private static MVUtils mInstance;
     private static MMKV mmkv;
 
 //    public MVUtils() {

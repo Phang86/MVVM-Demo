@@ -30,8 +30,6 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         initView();
-        List<View> views = getAllChildViews();
-        Log.e("TAG", "onCreate: "+views.toString());
     }
 
     private void initView() {

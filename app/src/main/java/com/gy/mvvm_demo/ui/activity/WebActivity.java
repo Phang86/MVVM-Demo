@@ -32,9 +32,9 @@ public class WebActivity extends BaseActivity {
         String uniquekey = getIntent().getStringExtra("uniquekey");
         if (uniquekey != null) {
             viewModel.getNewDetail(uniquekey);
-            viewModel.newsDetail.observe(context, newsDetailResponse ->
+            viewModel.newsDetail.observe(this, newsDetailResponse ->
                     binding.webView.loadUrl(newsDetailResponse.getResult().getDetail().getUrl()));
-            viewModel.failed.observe(context, this::showMsg);
+            viewModel.failed.observe(this, this::showMsg);
         }
     }
 

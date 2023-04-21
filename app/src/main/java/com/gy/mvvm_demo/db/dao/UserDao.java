@@ -28,5 +28,6 @@ public interface UserDao {
 
     @Query("DELETE FROM user")
     Completable deleteAll();
+
 }
 

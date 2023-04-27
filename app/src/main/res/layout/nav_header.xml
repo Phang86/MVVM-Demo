@@ -17,8 +17,9 @@
             android:id="@+id/lay_user_info"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:background="@color/purple_500">
+            android:background="@color/green">
             <!--头像-->
+
             <com.gy.mvvm_demo.view.CustomImageView
                 android:id="@+id/iv_avatar"
                 localUrl="@{homeViewModel.user.avatar}"
@@ -54,8 +55,12 @@
                 android:layout_toEndOf="@+id/iv_avatar"
                 android:text="@{homeViewModel.user.introduction ?? homeViewModel.defaultIntroduction}"
                 android:textColor="#FFF"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                />
+
         </RelativeLayout>
+
     </LinearLayout>
+
 </layout>
 

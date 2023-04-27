@@ -13,14 +13,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context=".ui.activity.MainActivity">
+        tools:context=".ui.activity.MainActivity"
+        >
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar_layout"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:fitsSystemWindows="true"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            >
+
             <!--折叠工具栏布局-->
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/toolbar_layout"
@@ -28,10 +31,12 @@
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
                 app:collapsedTitleGravity="center_horizontal"
-                app:contentScrim="@color/purple_500"
+                app:contentScrim="@color/green"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:title="MVVM"
-                app:toolbarId="@+id/toolbar">
+                app:toolbarId="@+id/toolbar"
+                >
+
                 <!--轮播-->
                 <com.gy.mvvm_demo.view.CustomImageView
                     android:id="@+id/image"
@@ -50,10 +55,13 @@
                     app:contentInsetEnd="0dp"
                     app:contentInsetStart="0dp"
                     app:layout_collapseMode="pin"
-                    app:layout_scrollFlags="scroll|snap" />
+                    app:layout_scrollFlags="scroll|snap"
+                    />
+
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
         </com.google.android.material.appbar.AppBarLayout>
+
         <!--嵌套滑动布局-->
         <androidx.core.widget.NestedScrollView
             android:id="@+id/scrollView"
@@ -62,29 +70,57 @@
             android:fillViewport="true"
             android:orientation="vertical"
             android:overScrollMode="never"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            >
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5dp" />
+                android:padding="5dp"
+                />
 
         </androidx.core.widget.NestedScrollView>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_home"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_gravity="end|bottom"
-            android:layout_margin="20dp"
-            android:background="@color/purple_500"
-            android:onClick="toHome"
-            android:src="@mipmap/ic_home"
-            app:backgroundTint="@color/purple_500"
-            app:fabSize="auto"
-            tools:ignore="UsingOnClickInXml"
-            android:contentDescription="主页" />
+            >
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:background="@color/theme_color"
+                android:onClick="toHome"
+                android:src="@mipmap/ic_home"
+                app:backgroundTint="@color/green"
+                app:fabSize="auto"
+                tools:ignore="UsingOnClickInXml"
+                android:contentDescription="主页"
+                />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_sms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/theme_color"
+                android:onClick="toHome"
+                android:src="@drawable/ic_sms"
+                app:backgroundTint="@color/green"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="20dp"
+                app:fabSize="auto"
+                tools:ignore="UsingOnClickInXml"
+                android:contentDescription="主页"
+                />
+
+
+        </LinearLayout>
+
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -2,22 +2,22 @@
     <!-- Base application theme. -->
     <style name="Theme.MVVMDemo" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryDark">@color/purple_500</item>
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorPrimaryDark">@color/green</item>
         <item name="colorAccent">@color/white</item>
         <item name="android:windowBackground">@color/white</item>
     </style>
 
-    <style name="materialTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/purple_500</item><!--设置状态栏的颜色-->
+    <style name="materialTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/green</item><!--设置状态栏的颜色-->
     </style>
 
     <style name="mainTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryDark">@color/purple_500</item>
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorPrimaryDark">@color/green</item>
         <item name="colorAccent">@color/white</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@color/green</item>
     </style>
 
 
@@ -38,7 +38,6 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
-
 
     <!--图片页面样式-->
     <style name="ImageTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
@@ -95,4 +94,5 @@
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:colorBackground">@android:color/transparent</item>
     </style>
+
 </resources>

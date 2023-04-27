@@ -27,7 +27,10 @@ public class WebActivity extends BaseActivity {
         ActivityWebBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_web);
         WebViewModel viewModel = new ViewModelProvider(this).get(WebViewModel.class);
         binding.webView.setWebViewClient(client);
-        setStatusBar(true);
+        //根据受否深色模式设置状态栏样式
+        setStatusBar(!isNight());
+        // enable:true （日间模式） enable : false （夜间模式）
+        binding.webView.getSettingsExtension().setDayOrNight(!isNight());
         // 在调用TBS初始化、创建WebView之前进行如下配置
         String uniquekey = getIntent().getStringExtra("uniquekey");
         if (uniquekey != null) {

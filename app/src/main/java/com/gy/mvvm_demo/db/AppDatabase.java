@@ -38,7 +38,7 @@ public abstract class AppDatabase extends RoomDatabase {
             synchronized (AppDatabase.class) {
                 if (mInstance == null) {
                     mInstance = Room.databaseBuilder(context.getApplicationContext(),
-                            AppDatabase.class, "mvvm_demo")
+                            AppDatabase.class, DATABASE_NAME)
                             .addMigrations(MIGRATION_1_2)
                             .addMigrations(MIGRATION_2_3)
                             .addMigrations(MIGRATION_3_4)
@@ -151,7 +151,6 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract UserDao userDao();
 
     public abstract NotebookDao notebookDao();
-
 
 }
 

@@ -84,7 +84,7 @@
                     android:text="@{notebook.time}"
                     android:layout_weight="2"
                     android:layout_gravity="center_vertical"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/line"
                     />
 
                 <TextView

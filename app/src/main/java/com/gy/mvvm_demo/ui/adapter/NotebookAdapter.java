@@ -52,5 +52,6 @@ public class NotebookAdapter extends BaseQuickAdapter<Notebook, BaseDataBindingH
             view.getContext().startActivity(intent);
         }
     }
+
 }
 

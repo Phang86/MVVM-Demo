@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -61,17 +64,44 @@ public class NotebookActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void initView() {
-        setStatusBar(true);
+        //根据受否深色模式设置状态栏样式
+        setStatusBar(!isNight());
         back(binding.toolbar);
         binding.toolbar.setTitle("");
         setSupportActionBar(binding.toolbar);
         //设置监听事件
         binding.tvAllSelected.setOnClickListener(this);
         binding.tvDelete.setOnClickListener(this);
+        //处理图标监听
+        binding.ivClear.setOnClickListener(this);
         binding.fabAddNotebook.setOnClickListener(toEdit -> {
             jumpActivity(EditActivity.class);
         });
         initList();
+        binding.etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() > 0) {
+                    binding.setIsSearch(true);
+                    //搜索笔记
+                    viewModel.searchNotebook(s.toString());
+                } else {
+                    //获取全部笔记
+                    binding.setIsSearch(false);
+                    viewModel.getNotebooks();
+                }
+            }
+        });
     }
 
     /**
@@ -154,6 +184,8 @@ public class NotebookActivity extends BaseActivity implements View.OnClickListen
                 hasNotebook = false;
             }
             binding.setHasNotebook(hasNotebook);
+            //是否显示搜索布局
+            binding.setShowSearchLay(hasNotebook || !binding.etSearch.getText().toString().isEmpty());
         });
         viewModel.failed.observe(this, result -> {
             Log.d(TAG, "onResume: " + result);
@@ -251,8 +283,14 @@ public class NotebookActivity extends BaseActivity implements View.OnClickListen
             case R.id.tv_all_selected:
                 allSelected();
                 break;
+            case R.id.iv_clear:
+                binding.etSearch.setText("");
+                binding.setIsSearch(false);
+                break;
             default:
                 break;
         }
     }
+
+
 }

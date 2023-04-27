@@ -15,9 +15,6 @@ public class Notebook {
     @Ignore
     private boolean isSelect;//是否选中
 
-    //private boolean select;
-
-
     public boolean isSelect() {
         return isSelect;
     }
@@ -64,7 +61,4 @@ public class Notebook {
         this.content = content;
     }
 
-//    public Notebook(String time) {
-//        this.time = time;
-//    }
 }

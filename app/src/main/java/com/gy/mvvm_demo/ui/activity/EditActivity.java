@@ -50,7 +50,8 @@ public class EditActivity extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit);
         viewModel = new ViewModelProvider(this).get(EditViewModel.class);
-        setStatusBar(true);
+        //根据受否深色模式设置状态栏样式
+        setStatusBar(!isNight());
         back(binding.toolbar);
         initView();
     }

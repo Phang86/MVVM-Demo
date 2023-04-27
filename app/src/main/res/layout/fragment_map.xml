@@ -57,7 +57,7 @@
                     android:contentDescription="城市"
                     android:src="@drawable/ic_city"
                     android:visibility="gone"
-                    app:backgroundTint="@color/white"
+                    app:backgroundTint="@color/fab_bg_color"
                     app:fabSize="mini"
                     tools:ignore="UsingOnClickInXml"
                     />

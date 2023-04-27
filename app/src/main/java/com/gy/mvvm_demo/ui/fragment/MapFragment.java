@@ -110,7 +110,8 @@ public class MapFragment extends BaseFragment implements AMap.OnMyLocationChange
         aMap.setOnMyLocationChangeListener(this);
         //修改放大缩小按钮的位置
         aMap.getUiSettings().setZoomPosition(AMapOptions.ZOOM_POSITION_RIGHT_CENTER);
-
+        //设置地图是否为夜间模式
+        aMap.setMapType(isNight() ? AMap.MAP_TYPE_NIGHT : AMap.MAP_TYPE_NORMAL);
     }
 
     /**

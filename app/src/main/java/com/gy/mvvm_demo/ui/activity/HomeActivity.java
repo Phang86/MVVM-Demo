@@ -149,7 +149,6 @@ public class HomeActivity extends BaseActivity  {
                 }
             }
         });
-
     }
 
 
@@ -304,7 +303,6 @@ public class HomeActivity extends BaseActivity  {
             case SELECT_PHOTO_CODE:
                 //相册中选择图片返回
                 modifyAvatar(CameraUtils.getImageOnKitKatPath(data, this));
-
                 break;
             case TAKE_PHOTO_CODE:
                 //相机中拍照返回
@@ -312,7 +310,6 @@ public class HomeActivity extends BaseActivity  {
                 break;
             default:
                 break;
-
         }
 
     }
@@ -450,7 +447,6 @@ public class HomeActivity extends BaseActivity  {
         binding.etContent.setHint(type == 0 ? "请输入昵称" : "请输入简介");
         editDialog.show();
     }
-
 
     /**
      * 退出登录

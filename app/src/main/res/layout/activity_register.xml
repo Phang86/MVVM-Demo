@@ -19,7 +19,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/purple_500"
+            android:background="@color/green"
             app:navigationIcon="@mipmap/icon_return_white">
 
             <TextView
@@ -38,7 +38,7 @@
             android:gravity="center"
             android:padding="24dp"
             android:text="MVVM"
-            android:textColor="@color/purple_500"
+            android:textColor="@color/green"
             android:textSize="48sp"
             android:textStyle="bold" />
 
@@ -70,7 +70,7 @@
                 android:layout_alignBottom="@+id/et_account_lay"
                 android:gravity="center"
                 android:text="*"
-                android:textColor="@color/purple_500"
+                android:textColor="@color/green"
                 android:textSize="24sp" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -98,7 +98,7 @@
                 android:layout_alignBottom="@+id/et_pwd_lay"
                 android:gravity="center"
                 android:text="*"
-                android:textColor="@color/purple_500"
+                android:textColor="@color/green"
                 android:textSize="24sp" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -148,6 +148,7 @@
                     android:background="@color/white"
                     android:hint="用户简介"
                     android:text="@={register.user.introduction}" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -158,10 +159,10 @@
                 android:layout_alignBottom="@+id/et_confirm_pwd_lay"
                 android:gravity="center"
                 android:text="*"
-                android:textColor="@color/purple_500"
+                android:textColor="@color/green"
                 android:textSize="24sp" />
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/btn_register"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
@@ -170,15 +171,20 @@
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
                 android:text="注  册"
-                app:cornerRadius="12dp" />
+                app:cornerRadius="12dp"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:text="注册信息中 * 为必填项" />
+                android:text="注册信息中 * 为必填项"
+                />
+
         </RelativeLayout>
+
     </LinearLayout>
+
 </layout>
 

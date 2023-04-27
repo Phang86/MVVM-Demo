@@ -14,12 +14,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/theme_color_secondary"
         android:orientation="vertical">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/purple_500">
+            android:background="@color/theme_color">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -28,7 +29,9 @@
                 android:text="登录"
                 android:textColor="@color/white"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                />
+
         </com.google.android.material.appbar.MaterialToolbar>
 
         <LinearLayout
@@ -36,7 +39,8 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="32dp">
+            android:padding="32dp"
+            >
 
             <TextView
                 android:layout_width="match_parent"
@@ -44,16 +48,18 @@
                 android:gravity="center"
                 android:padding="24dp"
                 android:text="MVVM"
-                android:textColor="@color/purple_500"
+                android:textColor="@color/green"
                 android:textSize="48sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                />
 
             <TextView
                 android:id="@+id/tv_account"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.user.account}"
-                android:visibility="gone" />
+                android:visibility="gone"
+                />
 
             <TextView
                 android:id="@+id/tv_pwd"
@@ -61,11 +67,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
                 android:text="@{viewModel.user.pwd}"
-                android:visibility="gone" />
+                android:visibility="gone"
+                />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_account"
@@ -73,7 +81,9 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:hint="账号"
-                    android:text="@={viewModel.user.account}" />
+                    android:text="@={viewModel.user.account}"
+                    />
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -88,10 +98,12 @@
                     android:background="@color/white"
                     android:hint="密码"
                     android:inputType="textPassword"
-                    android:text="@={viewModel.user.pwd}" />
+                    android:text="@={viewModel.user.pwd}"
+                    />
+
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.button.MaterialButton
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_login"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
@@ -99,24 +111,35 @@
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
                 android:text="登  录"
-                app:cornerRadius="12dp" />
+                app:cornerRadius="12dp"
+                android:textColor="@color/white"
+                />
+
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                >
+
                 <TextView
                     android:text="没有账号？去"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    />
+
                 <TextView
                     android:text="注册"
                     android:onClick="toRegister"
-                    android:textColor="@color/purple_500"
+                    android:textColor="@color/green"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:ignore="UsingOnClickInXml" />
+                    tools:ignore="UsingOnClickInXml"
+                    />
+
             </LinearLayout>
 
         </LinearLayout>
+
     </LinearLayout>
+
 </layout>
 

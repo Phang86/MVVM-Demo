@@ -6,20 +6,25 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.fragment.InfoFragment">
+        tools:context=".ui.fragment.InfoFragment"
+        >
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabIndicatorColor="@color/purple_500"
-            app:tabTextColor="@color/purple_500" />
+            app:tabIndicatorColor="@color/tab_color"
+            app:tabTextColor="@color/tab_color"
+            app:tabSelectedTextColor="@color/green"
+            />
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/vp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/tab" />
+            android:layout_below="@+id/tab"
+            />
 
     </RelativeLayout>
+
 </layout>

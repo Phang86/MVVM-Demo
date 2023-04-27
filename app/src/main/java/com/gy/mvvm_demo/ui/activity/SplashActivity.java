@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 
@@ -28,17 +29,12 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
+        //setContentView(R.layout.activity_splash);
         initView();
     }
 
     private void initView() {
-        ActivitySplashBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_splash);
-        setStatusBar(true);
-        EasyAnimation.moveViewWidth(binding.tvTranslate, () -> {
-            binding.tvMvvm.setVisibility(View.VISIBLE);
-            jumpActivityFinish(mvUtils.getBoolean(Constant.IS_LOGIN) ? MainActivity.class : LoginActivity.class);
-            finish();
-        });
+        setContentView(ActivitySplashBinding.inflate(getLayoutInflater()).getRoot());
+        new Handler().postDelayed(() -> jumpActivityFinish(mvUtils.getBoolean(Constant.IS_LOGIN) ? MainActivity.class : LoginActivity.class),400);
     }
 }

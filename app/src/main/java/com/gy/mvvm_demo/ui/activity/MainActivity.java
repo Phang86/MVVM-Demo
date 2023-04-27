@@ -79,11 +79,14 @@ public class MainActivity extends BaseActivity {
                 dataBinding.fabHome.show();
             }
         });
-
     }
 
     public void toHome(View view) {
-        jumpActivity(HomeActivity.class);
+        if (view.getId() == R.id.fab_sms) {
+            jumpActivity(GetSmsInfoActivity.class);
+        }else {
+            jumpActivity(HomeActivity.class);
+        }
     }
 
 }

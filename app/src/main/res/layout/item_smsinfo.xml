@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/item_sms_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="类型：发送"
+        />
+
+    <TextView
+        android:id="@+id/item_sms_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="姓名：张三"
+        />
+
+    <TextView
+        android:id="@+id/item_sms_body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="内容：哈哈哈海底大家"
+        />
+
+    <TextView
+        android:id="@+id/item_sms_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="电话号码：18339388339"
+        />
+
+    <TextView
+        android:id="@+id/item_sms_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="发送时间：2023-03-08"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"
+        android:layout_marginTop="5dp"
+        />
+
+</LinearLayout>

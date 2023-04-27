@@ -1,5 +1,6 @@
 package com.gy.mvvm_demo.ui.fragment;
 
+import android.app.UiModeManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -75,7 +76,10 @@ public class BaseFragment extends Fragment {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
-
+    protected boolean isNight() {
+        UiModeManager uiModeManager = (UiModeManager) context.getSystemService(Context.UI_MODE_SERVICE);
+        return uiModeManager.getNightMode() == UiModeManager.MODE_NIGHT_YES;
+    }
 }
 
 

@@ -9,4 +9,5 @@
         android:id="@+id/item_batch_deletion"
         android:title="批量删除"
         />
+
 </menu>

@@ -1,6 +1,8 @@
 package com.gy.mvvm_demo.ui.activity;
 
 import android.app.Activity;
+import android.app.UiModeManager;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -207,6 +209,12 @@ public class BaseActivity extends AppCompatActivity {
 //        }
 //        return allchildren;
 //    }
+
+    protected boolean isNight() {
+        UiModeManager uiModeManager = (UiModeManager) context.getSystemService(Context.UI_MODE_SERVICE);
+        return uiModeManager.getNightMode() == UiModeManager.MODE_NIGHT_YES;
+    }
+
 
 }
 

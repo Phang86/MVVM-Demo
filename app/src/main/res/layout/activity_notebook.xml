@@ -29,6 +29,16 @@
 
         <!--R文件-->
         <import type="com.gy.mvvm_demo.R" />
+
+        <!--是否显示搜索布局-->
+        <variable
+            name="showSearchLay"
+            type="Boolean" />
+
+        <!--搜索框是否有内容-->
+        <variable
+            name="isSearch"
+            type="Boolean" />
     </data>
 
     <RelativeLayout
@@ -69,11 +79,66 @@
             android:orientation="vertical"
             >
 
+            <!--搜索笔记布局，有笔记时显示-->
+            <LinearLayout
+                android:id="@+id/lay_search"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:visibility="@{showSearchLay ? View.VISIBLE : View.GONE}">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:background="@drawable/shape_search_bg"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    >
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/ic_search"
+                        />
+
+                    <EditText
+                        android:id="@+id/et_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginEnd="32dp"
+                        android:background="@null"
+                        android:hint="搜索笔记"
+                        android:textColor="@color/black"
+                        android:textCursorDrawable="@drawable/custom_cursor"
+                        android:textSize="@dimen/sp_14"
+                        />
+
+                    <ImageView
+                        android:id="@+id/iv_clear"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/ic_clear"
+                        android:visibility="@{isSearch ? View.VISIBLE : View.GONE}"
+                        />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
             <!--笔记列表-->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_notebook"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_below="@+id/lay_search"
                 android:overScrollMode="never"
                 android:visibility="@{hasNotebook ? View.VISIBLE : View.GONE}"
                 android:padding="4dp"

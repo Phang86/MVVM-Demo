@@ -32,6 +32,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+
     //启用DataBinding
     buildFeatures {
         dataBinding true
@@ -106,5 +107,13 @@ dependencies {
     // Hilt 对于ViewModel的支持
     implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02'
     annotationProcessor 'androidx.hilt:hilt-compiler:1.0.0-alpha02'
+
+    // 友盟基础组件库（所有友盟业务SDK都依赖基础组件库）
+    implementation "com.umeng.umsdk:common:9.4.2" //（必选）
+    implementation "com.umeng.umsdk:asms:1.4.1" // asms包依赖(必选)
+    implementation "com.umeng.umsdk:apm:1.4.2" // U-APM包依赖(必选)
+
+    //  google权限管理框架
+    implementation 'pub.devrel:easypermissions:3.0.0'
 
 }

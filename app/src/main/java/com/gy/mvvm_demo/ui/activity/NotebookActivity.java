@@ -273,7 +273,6 @@ public class NotebookActivity extends BaseActivity implements View.OnClickListen
         notebookAdapter.notifyDataSetChanged();
     }
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -291,6 +290,5 @@ public class NotebookActivity extends BaseActivity implements View.OnClickListen
                 break;
         }
     }
-
 
 }

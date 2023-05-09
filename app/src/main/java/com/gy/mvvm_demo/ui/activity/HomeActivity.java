@@ -413,7 +413,6 @@ public class HomeActivity extends BaseActivity  {
         takePictureActivityResultLauncher.launch(mCameraUri);
     }
 
-
     /**
      * 显示可输入文字弹窗
      * @param type 0 修改昵称  1  修改简介

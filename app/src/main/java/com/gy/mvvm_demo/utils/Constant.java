@@ -48,5 +48,11 @@ public class Constant {
      */
     public static final String NOTEBOOK_VIEW_TYPE = "notebookViewType";
 
+    /**
+     * 友盟SDK  AppKey
+     */
+    public static final String U_MENG_APPKEY = "645863d4ba6a5259c44bbc35";
+
+
 }
 

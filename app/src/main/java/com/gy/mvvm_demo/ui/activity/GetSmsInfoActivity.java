@@ -77,7 +77,6 @@ public class GetSmsInfoActivity extends BaseActivity {
             .skipMemoryCache(true);//不做内存缓存
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -248,17 +247,26 @@ public class GetSmsInfoActivity extends BaseActivity {
                     //权限请求判断
                     //permissionVersion();
                     privacyPolicyDialog.dismiss();
+                    if (isAndroid6()) {
+                        permissionActivityResultLauncher.launch(SMS_PERMISSIONS);
+                    } else {
+                        Toast.makeText(context, "无需动态权限申请", Toast.LENGTH_SHORT).show();
+                    }
                 });
         privacyPolicyDialog = builder.create();
         privacyPolicyDialog.show();
     }
 
     public void openAlbum(View view) {
-        //方法一：
-//        getCameraPermissionActivityResultLauncher.launch(new String[]{"image/*"});
+        if (view.getId() == R.id.btn_search) {
+            startActivity(new Intent(this,SearchActivity.class));
+        } else {
+            //方法一：
+//            getCameraPermissionActivityResultLauncher.launch(new String[]{"image/*"});
 
-        //方法二：
-        requestCameraPermissions();
+            //方法二：
+            requestCameraPermissions();
+        }
     }
 
     @AfterPermissionGranted(REQUEST_EXTERNAL_STORAGE_CODE)
@@ -272,7 +280,7 @@ public class GetSmsInfoActivity extends BaseActivity {
             startActivityForResult(intent, OPEN_ALBUM_CODE);
         } else {
             //无权限则进行请求
-            EasyPermissions.requestPermissions(GetSmsInfoActivity.this, "请求权限", REQUEST_EXTERNAL_STORAGE_CODE,CAMERA_PERMISSIONS);
+            EasyPermissions.requestPermissions(GetSmsInfoActivity.this, "请求权限", REQUEST_EXTERNAL_STORAGE_CODE, CAMERA_PERMISSIONS);
         }
     }
 

@@ -2,10 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
-    <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
-    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -35,7 +34,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MVVMDemo"
         tools:targetApi="n">
-
+        <activity
+            android:name=".ui.activity.SearchActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".ui.activity.GetSmsInfoActivity"
             android:exported="false">
@@ -43,7 +48,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".ui.activity.EditActivity"
             android:exported="false"
@@ -52,7 +56,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".ui.activity.NotebookActivity"
             android:exported="false"
@@ -61,7 +64,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".ui.activity.RegisterActivity"
             android:exported="false">
@@ -69,7 +71,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".ui.activity.WebActivity"
             android:exported="false"
@@ -78,7 +79,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".ui.activity.HomeActivity"
             android:exported="false">
@@ -86,7 +86,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".ui.activity.LoginActivity"
             android:exported="false">
@@ -94,7 +93,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".ui.activity.PictureViewActivity"
             android:exported="false"
@@ -103,7 +101,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".ui.activity.MainActivity"
             android:exported="false">
@@ -111,12 +108,10 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".ui.activity.SplashActivity"
             android:exported="true"
             android:theme="@style/SplashThemePlus">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -126,9 +121,7 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity>
-
-        <!-- Android7.0以后读取文件需要配置Provider -->
+        </activity> <!-- Android7.0以后读取文件需要配置Provider -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
@@ -137,13 +130,10 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
-        </provider>
-
-        <!-- 高德地图Key -->
+        </provider> <!-- 高德地图Key -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="56ea0626692cc8ab4e200e7fc2fc3a74" />
-
     </application>
 
 </manifest>

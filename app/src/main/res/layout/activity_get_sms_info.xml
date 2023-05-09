@@ -24,6 +24,7 @@
         />
 
     <Button
+        android:id="@+id/btn_openAlbum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="打开相册"
@@ -32,9 +33,21 @@
         android:onClick="openAlbum"
         />
 
+    <Button
+        android:id="@+id/btn_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="搜索动画"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/btn_openAlbum"
+        android:onClick="openAlbum"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/sms_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
+
+
 </RelativeLayout>

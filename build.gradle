@@ -30,6 +30,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+
         maven { url 'https://jitpack.io' }
         //新增友盟+应用性能监控maven
         maven { url 'https://repo1.maven.org/maven2/' }

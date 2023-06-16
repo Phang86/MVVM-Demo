@@ -16,5 +16,7 @@
         android:gravity="center"
         android:text="@{cityName}"
         android:padding="12dp"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        />
+
 </layout>

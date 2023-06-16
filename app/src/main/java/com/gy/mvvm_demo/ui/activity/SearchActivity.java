@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,8 +30,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.gy.mvvm_demo.R;
+import com.gy.mvvm_demo.utils.DateUtil;
 import com.gy.mvvm_demo.utils.Md5Utils;
+import com.gy.mvvm_demo.utils.StatusBarUtils;
 import com.gy.mvvm_demo.view.WifiStateUtils;
+
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,6 +56,11 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        StatusBarUtils.setImmersionStateMode(this);
+        StatusBarUtils.FlymeSetStatusBarLightMode(getWindow(),true);
+        StatusBarUtils.MIUISetStatusBarLightMode(getWindow(),true);
+
         ButterKnife.bind(this);
         initView();
         //每过一秒钟监测一次wifi的网络状态

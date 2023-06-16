@@ -35,6 +35,16 @@
         android:theme="@style/Theme.MVVMDemo"
         tools:targetApi="n">
         <activity
+            android:name=".ui.activity.MsgInfoActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.activity.SplashActivity"
+            android:exported="false"></activity>
+        <activity
             android:name=".ui.activity.SearchActivity"
             android:exported="false">
             <meta-data
@@ -109,9 +119,8 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.activity.SplashActivity"
-            android:exported="true"
-            android:theme="@style/SplashThemePlus">
+            android:name=".ui.activity.TestRvActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

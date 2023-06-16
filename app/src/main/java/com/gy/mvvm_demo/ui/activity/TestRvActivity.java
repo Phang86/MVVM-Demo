@@ -37,11 +37,11 @@ public class TestRvActivity extends AppCompatActivity{
 
     private void initRecyclerView() {
         adapter = new RecyclerAdapter(this, mList);
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 10; i++) {
             if (i % 2 == 0) {
-                mList.add(new TestRvBean(i, DateUtil.getNowTime(), "小明同來了哈哈哈哈啊啊哈哈小明同來了哈哈哈哈啊啊哈哈系統通知一條消息"));
+                mList.add(new TestRvBean(i, DateUtil.getNowTime(), "比如使用LinearLayout作为根布局，而content部分width已经是match_parent，此时如果菜单view用的是wrap_content，menu的宽度就会为0。"));
             } else {
-                mList.add(new TestRvBean(i, DateUtil.getNowTime(), "系統通知一條消息系統通知一條消息系統通知一條消息系統通知一條消息"));
+                mList.add(new TestRvBean(i, DateUtil.getNowTime(), "这里进行了强制的要求，RecyclerView的子ViewGroup必须要有2个子view,这样菜单按钮才会有值，"));
             }
         }
         binding.testRv.setLayoutManager(new LinearLayoutManager(this));

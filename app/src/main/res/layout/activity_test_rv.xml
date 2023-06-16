@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/search_gray"
     tools:context=".ui.activity.TestRvActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -23,8 +24,10 @@
     <com.gy.mvvm_demo.view.SlideRecyclerView
         android:id="@+id/test_rv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:clipToPadding="false"
+        android:background="@color/white"
+        android:overScrollMode="never"
         />
 
 </LinearLayout>

@@ -20,7 +20,8 @@ public class NotebookRepository {
     private static final String TAG = NotebookRepository.class.getSimpleName();
 
     @Inject
-    NotebookRepository() {}
+    NotebookRepository() {
+    }
 
     private final MutableLiveData<Notebook> notebookLiveData = new MutableLiveData<>();
 
@@ -59,14 +60,15 @@ public class NotebookRepository {
 
     /**
      * 根据id获取笔记
+     *
      * @param uid id
      */
-    public MutableLiveData<Notebook> getNotebookById(int uid){
+    public MutableLiveData<Notebook> getNotebookById(int uid) {
         Flowable<Notebook> flowable = BaseApplication.getDb().notebookDao().findById(uid);
-        CustomDisposable.addDisposable(flowable,notebook -> {
-            if (notebook != null){
+        CustomDisposable.addDisposable(flowable, notebook -> {
+            if (notebook != null) {
                 notebookLiveData.postValue(notebook);
-            }else{
+            } else {
                 failed.postValue("未查询到笔记");
             }
         });
@@ -75,12 +77,13 @@ public class NotebookRepository {
 
     /**
      * 更新笔记
+     *
      * @param notebook
      */
-    public void updateNoteBook(Notebook notebook){
+    public void updateNoteBook(Notebook notebook) {
         Completable update = BaseApplication.getDb().notebookDao().update(notebook);
-        CustomDisposable.addDisposable(update,()->{
-            Log.d(TAG, "updateNoteBook: "+"更新成功");
+        CustomDisposable.addDisposable(update, () -> {
+            Log.d(TAG, "updateNoteBook: " + "更新成功");
             failed.postValue("200");
         });
     }
@@ -88,10 +91,10 @@ public class NotebookRepository {
     /**
      * 删除笔记
      */
-    public void deleteNotebook(Notebook... notebook){
+    public void deleteNotebook(Notebook... notebook) {
         Completable delete = BaseApplication.getDb().notebookDao().delete(notebook);
-        CustomDisposable.addDisposable(delete,()->{
-            Log.d(TAG, "deleteNotebook: "+"删除成功");
+        CustomDisposable.addDisposable(delete, () -> {
+            Log.d(TAG, "deleteNotebook: " + "删除成功");
             failed.postValue("200");
         });
     }

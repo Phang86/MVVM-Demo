@@ -62,7 +62,7 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <!--嵌套滑动布局-->
+        <!-- 嵌套滑动布局 -->
         <androidx.core.widget.NestedScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
@@ -118,10 +118,7 @@
                 android:contentDescription="主页"
                 />
 
-
         </LinearLayout>
-
-
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

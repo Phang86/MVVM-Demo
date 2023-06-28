@@ -9,7 +9,7 @@ import androidx.core.app.ActivityCompat;
 
 public class PermissionUtils {
 
-    private static PermissionUtils mInstance;
+    private static volatile PermissionUtils mInstance;
 
     public static final String READ_EXTERNAL_STORAGE = Manifest.permission.READ_EXTERNAL_STORAGE;
     public static final String WRITE_EXTERNAL_STORAGE = Manifest.permission.WRITE_EXTERNAL_STORAGE;

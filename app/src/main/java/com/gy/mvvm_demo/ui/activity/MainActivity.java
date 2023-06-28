@@ -37,15 +37,14 @@ public class MainActivity extends BaseActivity {
 
     private void initView() {
         //数据绑定视图
-        dataBinding = DataBindingUtil.setContentView(this,R.layout.activity_main);
+        dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         //网络请求
         mainViewModel.getBiying();
         //返回数据时更新ViewModel，ViewModel更新则xml更新
-        mainViewModel.biying.observe(this,biYingResponse -> dataBinding.setViewModel(mainViewModel));
+        mainViewModel.biying.observe(this, biYingResponse -> dataBinding.setViewModel(mainViewModel));
 
-        GridLayoutManager manager = new GridLayoutManager(this, 2);
-        dataBinding.rv.setLayoutManager(manager);
+        dataBinding.rv.setLayoutManager(new GridLayoutManager(this, 2));
 
         //热门壁纸 网络请求
         mainViewModel.getWallPaper();
@@ -84,7 +83,7 @@ public class MainActivity extends BaseActivity {
     public void toHome(View view) {
         if (view.getId() == R.id.fab_sms) {
             jumpActivity(GetSmsInfoActivity.class);
-        }else {
+        } else {
             jumpActivity(HomeActivity.class);
         }
     }

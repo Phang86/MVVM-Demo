@@ -214,7 +214,5 @@ public class BaseActivity extends AppCompatActivity {
         UiModeManager uiModeManager = (UiModeManager) context.getSystemService(Context.UI_MODE_SERVICE);
         return uiModeManager.getNightMode() == UiModeManager.MODE_NIGHT_YES;
     }
-
-
 }
 

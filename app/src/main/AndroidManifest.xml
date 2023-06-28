@@ -8,9 +8,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 相机权限 -->
-    <uses-permission android:name="android.permission.CAMERA" /> <!-- 文件读写权限 -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- 相机权限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 文件读写权限 -->
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" /> <!-- 管理外部存储权限，Android11需要 -->
@@ -20,6 +20,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 允许获取精准位置 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 允许获取wifi状态改变，用于网络定位 -->
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
 
     <application
         android:name=".BaseApplication"
@@ -130,7 +131,9 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity> <!-- Android7.0以后读取文件需要配置Provider -->
+        </activity>
+
+        <!-- Android7.0以后读取文件需要配置Provider -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
@@ -139,7 +142,9 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
-        </provider> <!-- 高德地图Key -->
+        </provider>
+
+        <!-- 高德地图Key -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="56ea0626692cc8ab4e200e7fc2fc3a74" />

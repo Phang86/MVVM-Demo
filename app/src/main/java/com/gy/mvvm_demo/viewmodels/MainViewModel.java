@@ -34,7 +34,7 @@ public class MainViewModel extends BaseViewModel {
 
 
     public void getBiying(){
-        //biying = new MainRepository().getBiYing();
+//        biying = new MainRepository().getBiYing();
         failed = mainRepository.failed;
         biying = mainRepository.getBiYing();
     }

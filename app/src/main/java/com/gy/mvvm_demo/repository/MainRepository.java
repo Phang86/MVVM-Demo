@@ -36,6 +36,7 @@ import io.reactivex.Flowable;
 
 /**
  * Main存储库 用于对数据进行处理
+ *
  * @author llw
  */
 public class MainRepository {
@@ -52,7 +53,7 @@ public class MainRepository {
 
 
     @Inject
-    public MainRepository(){
+    public MainRepository() {
         //获取mvUtils
         MVUtilsEntryPoint entryPoint =
                 EntryPointAccessors.fromApplication(getContext(), MVUtilsEntryPoint.class);
@@ -62,6 +63,7 @@ public class MainRepository {
 
     /**
      * 获取壁纸数据
+     *
      * @return wallPaper
      */
     public MutableLiveData<WallPaperResponse> getWallPaper() {
@@ -79,23 +81,23 @@ public class MainRepository {
     }
 
     //从网络获取壁纸数据
-    private void requestNetworkApiForWallPaper(){
+    private void requestNetworkApiForWallPaper() {
         Log.d(TAG, "requestNetworkApiForWallPaper: 从网络获取  热门壁纸");
-        NetworkApi.createService(ApiService.class,1).wallPaper().compose(NetworkApi.applySchedulers(new BaseObserver<WallPaperResponse>() {
+        NetworkApi.createService(ApiService.class, 1).wallPaper().compose(NetworkApi.applySchedulers(new BaseObserver<WallPaperResponse>() {
             @Override
             public void onSuccess(WallPaperResponse wallPaperResponse) {
                 if (wallPaperResponse.getCode() == 0) {
                     //保存到本地
                     saveWallPaper(wallPaperResponse);
                     wallPaper.setValue(wallPaperResponse);
-                }else{
+                } else {
                     failed.postValue(wallPaperResponse.getMsg());
                 }
             }
 
             @Override
             public void onFailure(Throwable e) {
-                failed.postValue("Wallpaper error:"+e.toString());
+                failed.postValue("Wallpaper error:" + e.toString());
             }
         }));
     }
@@ -149,7 +151,7 @@ public class MainRepository {
      */
     private void saveImageData(BiYingResponse biYingImgResponse) {
         //记录今日已请求
-        mvUtils.put(Constant.IS_TODAY_REQUEST,true);
+        mvUtils.put(Constant.IS_TODAY_REQUEST, true);
         //记录此次请求的时最晚有效时间戳
         mvUtils.put(Constant.REQUEST_TIMESTAMP, DateUtil.getMillisNextEarlyMorning());
         BiYingResponse.ImagesBean bean = biYingImgResponse.getImages().get(0);
@@ -158,14 +160,14 @@ public class MainRepository {
                 new Image(1, bean.getUrl(), bean.getUrlbase(), bean.getCopyright(),
                         bean.getCopyrightlink(), bean.getTitle()));
         //RxJava处理Room数据存储
-        CustomDisposable.addDisposable(insert,() -> Log.d(TAG, "saveImageData: 插入数据成功"));
+        CustomDisposable.addDisposable(insert, () -> Log.d(TAG, "saveImageData: 插入数据成功"));
     }
 
 
     public MutableLiveData<BiYingResponse> getBiYing() {
         //今日此接口是否已请求
         if (mvUtils.getBoolean(Constant.IS_TODAY_REQUEST)) {
-            if(DateUtil.getTimestamp() <= mvUtils.getLong(Constant.REQUEST_TIMESTAMP)){
+            if (DateUtil.getTimestamp() <= mvUtils.getLong(Constant.REQUEST_TIMESTAMP)) {
                 //当前时间未超过次日0点，从本地获取
                 getLocalDB();
             } else {
@@ -186,7 +188,7 @@ public class MainRepository {
     @SuppressLint("CheckResult")
     private void requestNetworkApi() {
         Log.d(TAG, "requestNetworkApi: 从网络获取");
-        ApiService apiService = NetworkApi.createService(ApiService.class,0);
+        ApiService apiService = NetworkApi.createService(ApiService.class, 0);
         apiService.biying().compose(NetworkApi.applySchedulers(new BaseObserver<BiYingResponse>() {
             @Override
             public void onSuccess(BiYingResponse biYingImgResponse) {

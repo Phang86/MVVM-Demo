@@ -65,13 +65,13 @@ public class WebActivity extends BaseActivity {
 
         @Override
         public void onReceivedError(WebView webView, int i, String s, String s1) {
-            System.out.println("***********onReceivedError ************");
+            System.out.println("*********** onReceivedError ************");
             super.onReceivedError(webView, i, s, s1);
         }
 
         @Override
         public void onReceivedHttpError(WebView webView, WebResourceRequest webResourceRequest, WebResourceResponse webResourceResponse) {
-            System.out.println("***********onReceivedHttpError ************");
+            System.out.println("*********** onReceivedHttpError ************");
             super.onReceivedHttpError(webView, webResourceRequest, webResourceResponse);
         }
     };

@@ -46,6 +46,8 @@ import com.gy.mvvm_demo.viewmodels.HomeViewModel;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class HomeActivity extends BaseActivity  {
 
@@ -60,7 +62,7 @@ public class HomeActivity extends BaseActivity  {
     private Uri mCameraUri;
     // 用于保存图片的文件路径，Android 10以下使用图片路径访问图片
     private String mCameraImagePath;
-    private final String TAG = "HomeActivity";
+    private final String TAG = this.getClass().getSimpleName();
     private HomeViewModel homeViewModel;
     private User localUser;
     /**
@@ -124,7 +126,6 @@ public class HomeActivity extends BaseActivity  {
             }else{
                 showMsg("返回对象为空，未选择本地照片");
             }
-
         });
         //多个权限返回结果
         permissionActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), result -> {
@@ -265,7 +266,7 @@ public class HomeActivity extends BaseActivity  {
                 return;
             }
             if (!hasPermission(PermissionUtils.READ_EXTERNAL_STORAGE)) {
-//                requestPermission(PermissionUtils.READ_EXTERNAL_STORAGE);
+                requestPermission(PermissionUtils.READ_EXTERNAL_STORAGE);
                 permissionActivityResultLauncher.launch(new String[]{PermissionUtils.READ_EXTERNAL_STORAGE});
                 return;
             }
@@ -313,33 +314,6 @@ public class HomeActivity extends BaseActivity  {
         }
 
     }
-
-//    /**
-//     * 权限请求结果
-//     */
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull @NotNull String[] permissions, @NonNull @NotNull int[] grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//        switch (requestCode) {
-//            case PermissionUtils.REQUEST_STORAGE_CODE:
-//                //文件读写权限
-//                if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-//                    showMsg("您拒绝了读写文件权限，无法打开相册，抱歉。");
-//                    return;
-//                }
-//                openAlbum();
-//                break;
-//            case PermissionUtils.REQUEST_CAMERA_CODE:
-//                if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-//                    showMsg("您拒绝了相机权限，无法打开相机，抱歉。");
-//                    return;
-//                }
-//                takePicture();
-//                break;
-//            default:
-//                break;
-//        }
-//    }
 
     /**
      * 打开相册
